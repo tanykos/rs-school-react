@@ -8,10 +8,24 @@ class SearchSection extends Component<SearchSectionProps, SearchComponentState> 
     searchTerm: '',
   };
 
+  fetchInitialItems = async () => {
+    const { searchTerm } = this.state;
+    const { onSearchResults } = this.props;
+
+    try {
+      const res = await fetchItems(searchTerm);
+      onSearchResults(res);
+    } catch (error) {
+      console.error('Error fetching initial items:', error);
+    }
+  };
+
   componentDidMount() {
     const savedSearchTerm = localStorage.getItem('searchTerm');
     if (savedSearchTerm) {
-      this.setState({ searchTerm: savedSearchTerm });
+      this.setState({ searchTerm: savedSearchTerm }, this.fetchInitialItems);
+    } else {
+      this.fetchInitialItems();
     }
   }
 

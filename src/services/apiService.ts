@@ -3,12 +3,13 @@ import { Movie, MovieApi } from '../types';
 
 const API_KEY = '2c84d336';
 const API_URL = 'https://www.omdbapi.com/';
+const defaultSearch = 'movie';
 
-export const fetchItems = async (term: string, page: number = 1): Promise<Movie[]> => {
+export const fetchItems = async (term: string = '', page: number = 1): Promise<Movie[]> => {
   try {
     const response = await axios.get(API_URL, {
       params: {
-        s: term,
+        s: term || defaultSearch,
         page,
         apikey: API_KEY,
       },

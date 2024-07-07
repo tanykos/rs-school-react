@@ -17,7 +17,7 @@ class App extends Component<object, AppState> {
     return (
       <div className="app">
         <SearchSection onSearchResults={this.handleSearchResults} />
-        <ResultsSection />
+        <ResultsSection results={this.state.results} />
       </div>
     );
   }
