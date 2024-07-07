@@ -1,0 +1,16 @@
+@import '../../styles/variables';
+
+.searchSection {
+  background-color: $main-color;
+  padding-bottom: 1.5rem;
+}
+
+.searchRow {
+  display: flex;
+  justify-content: center;
+}
+
+.search {
+  margin-right: 2rem;
+  border-radius: 4px;
+}
