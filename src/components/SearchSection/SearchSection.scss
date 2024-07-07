@@ -1,0 +1,25 @@
+@import '../../styles/variables';
+
+.searchSection {
+  background-color: $main-color;
+  padding-bottom: 1.5rem;
+}
+
+.searchRow {
+  display: flex;
+  justify-content: center;
+}
+
+.search {
+  margin-right: 2rem;
+  border-radius: 4px;
+}
+
+.errorBtn {
+  background-color: $error-bg;
+  margin-left: 1rem;
+
+  &:hover:not([disabled]) {
+    background-color: darken($error-bg, 10%);
+  }
+}

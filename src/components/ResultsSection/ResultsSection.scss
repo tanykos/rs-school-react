@@ -1,0 +1,28 @@
+@import '../../styles/variables';
+
+.resultsSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.movieCard {
+  width: calc(20% - 20px);
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: $card-color;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  .movieImage {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .movieCard {
+    width: calc(50% - 20px);
+  }
+}
