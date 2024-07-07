@@ -14,3 +14,12 @@
   margin-right: 2rem;
   border-radius: 4px;
 }
+
+.errorBtn {
+  background-color: $error-bg;
+  margin-left: 1rem;
+
+  &:hover:not([disabled]) {
+    background-color: darken($error-bg, 10%);
+  }
+}

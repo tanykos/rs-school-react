@@ -1,5 +1,6 @@
 import { fetchItems } from '../../services/apiService';
 import { SearchComponentState, SearchSectionProps } from '../../types';
+import ErrorThrowButton from '../ErrorThrowButton/ErrorThrowButton';
 import './SearchSection.scss';
 import { Component } from 'react';
 
@@ -77,6 +78,8 @@ class SearchSection extends Component<SearchSectionProps, SearchComponentState> 
           <button type="submit" disabled={loading}>
             Search
           </button>
+
+          <ErrorThrowButton />
         </form>
       </div>
     );
