@@ -6,17 +6,23 @@ import { Component } from 'react';
 class SearchSection extends Component<SearchSectionProps, SearchComponentState> {
   state: SearchComponentState = {
     searchTerm: '',
+    loading: false,
   };
 
   fetchInitialItems = async () => {
     const { searchTerm } = this.state;
-    const { onSearchResults } = this.props;
+    const { onSearchResults, onLoading } = this.props;
 
     try {
+      this.setState({ loading: true });
+      onLoading(true);
       const res = await fetchItems(searchTerm);
       onSearchResults(res);
     } catch (error) {
       console.error('Error fetching initial items:', error);
+    } finally {
+      this.setState({ loading: false });
+      onLoading(false);
     }
   };
 
@@ -35,24 +41,27 @@ class SearchSection extends Component<SearchSectionProps, SearchComponentState> 
 
   handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Search clicked: ');
 
     const { searchTerm } = this.state;
-    const { onSearchResults } = this.props;
+    const { onSearchResults, onLoading } = this.props;
     const trimmedSearchTerm = searchTerm.trim();
 
     try {
+      this.setState({ loading: true });
+      onLoading(true);
       const res = await fetchItems(trimmedSearchTerm);
-      console.log('IN Search: ', res);
       localStorage.setItem('searchTerm', trimmedSearchTerm);
       onSearchResults(res);
     } catch (error) {
       console.error(error);
+    } finally {
+      this.setState({ loading: false });
+      onLoading(false);
     }
   };
 
   render() {
-    const { searchTerm } = this.state;
+    const { searchTerm, loading } = this.state;
 
     return (
       <div className="searchSection">
@@ -65,7 +74,9 @@ class SearchSection extends Component<SearchSectionProps, SearchComponentState> 
             onChange={this.handleInputChange}
             placeholder="Enter a word in English..."
           />
-          <button type="submit">Search</button>
+          <button type="submit" disabled={loading}>
+            Search
+          </button>
         </form>
       </div>
     );
