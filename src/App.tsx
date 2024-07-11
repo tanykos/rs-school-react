@@ -1,31 +1,25 @@
 import './styles/App.scss';
-import ResultsSection from './components/ResultsSection/ResultsSection';
+import CardList from './components/CardList/CardList';
 import SearchSection from './components/SearchSection/SearchSection';
-import { AppState, Movie } from './types';
-import { Component } from 'react';
+import { Movie } from './types';
+import { useCallback, useState } from 'react';
 
-class App extends Component<object, AppState> {
-  state: AppState = {
-    results: [],
-    loading: false,
-  };
+export default function App() {
+  const [results, setResults] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  handleSearchResults = (results: Movie[]) => {
-    this.setState({ results });
-  };
+  const handleSearchResults = useCallback((results: Movie[]) => {
+    setResults(results);
+  }, []);
 
-  handleOnLoading = (loading: boolean) => {
-    this.setState({ loading });
-  };
+  const handleOnLoading = useCallback((loading: boolean) => {
+    setLoading(loading);
+  }, []);
 
-  render() {
-    return (
-      <div className="app">
-        <SearchSection onSearchResults={this.handleSearchResults} onLoading={this.handleOnLoading} />
-        <ResultsSection results={this.state.results} loading={this.state.loading} />
-      </div>
-    );
-  }
+  return (
+    <div className="app">
+      <SearchSection onSearchResults={handleSearchResults} onLoading={handleOnLoading} />
+      <CardList results={results} loading={loading} />
+    </div>
+  );
 }
-
-export default App;

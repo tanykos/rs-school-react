@@ -1,13 +1,5 @@
 @import '../../styles/variables';
 
-.resultsSection {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  padding: 2rem 0;
-}
-
 .movieCard {
   width: calc(20% - 20px);
   margin-bottom: 20px;

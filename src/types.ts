@@ -16,13 +16,3 @@ export interface SearchSectionProps {
   onSearchResults: (results: Movie[]) => void;
   onLoading: (loading: boolean) => void;
 }
-
-export interface SearchComponentState {
-  searchTerm: string;
-  loading: boolean;
-}
-
-export interface AppState {
-  results: Movie[];
-  loading: boolean;
-}
