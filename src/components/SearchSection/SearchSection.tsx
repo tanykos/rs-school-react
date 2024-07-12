@@ -3,11 +3,13 @@ import { fetchItems } from '../../services/apiService';
 import { SearchSectionProps } from '../../types';
 import ErrorThrowButton from '../ErrorThrowButton/ErrorThrowButton';
 import { useCallback, useEffect, useState } from 'react';
+import useSearchTerm from '../../hooks/useLocalStorage';
 
 export default function SearchSection({ onSearchResults, onLoading }: SearchSectionProps) {
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useSearchTerm('searchTerm', '');
+  const [inputValue, setInputValue] = useState(searchTerm);
 
-  const fetchInitialItems = useCallback(
+  const fetchItemsHandler = useCallback(
     async (term: string) => {
       try {
         onLoading(true);
@@ -22,35 +24,22 @@ export default function SearchSection({ onSearchResults, onLoading }: SearchSect
     [onLoading, onSearchResults],
   );
 
-  useEffect(() => {
-    const savedSearchTerm = localStorage.getItem('searchTerm');
-    if (savedSearchTerm) {
-      setSearchTerm(savedSearchTerm);
-      fetchInitialItems(savedSearchTerm);
-    } else {
-      fetchInitialItems('');
-    }
-  }, [fetchInitialItems]);
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+    setInputValue(event.target.value);
   };
 
   const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const trimmedSearchTerm = searchTerm.trim();
+    const trimmedSearchTerm = inputValue.trim();
 
-    try {
-      onLoading(true);
-      const res = await fetchItems(trimmedSearchTerm);
-      localStorage.setItem('searchTerm', trimmedSearchTerm);
-      onSearchResults(res);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      onLoading(false);
-    }
+    setSearchTerm(trimmedSearchTerm);
+    fetchItemsHandler(trimmedSearchTerm);
   };
+
+  // Fetch initial items on mount
+  useEffect(() => {
+    fetchItemsHandler(searchTerm);
+  }, [fetchItemsHandler, searchTerm]);
 
   return (
     <div className="searchSection">
@@ -59,7 +48,7 @@ export default function SearchSection({ onSearchResults, onLoading }: SearchSect
         <input
           className="search"
           type="text"
-          value={searchTerm}
+          value={inputValue}
           onChange={handleInputChange}
           placeholder="Enter a word in English..."
         />

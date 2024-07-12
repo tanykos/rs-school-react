@@ -16,7 +16,6 @@ export const fetchItems = async (term: string = '', page: number = 1): Promise<M
     });
 
     if (response.data.Response === 'True') {
-      console.log();
       return response.data.Search.map((item: MovieApi) => ({
         id: item.imdbID,
         title: item.Title,
