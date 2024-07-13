@@ -7,7 +7,7 @@ interface CardProps {
 
 export default function Card({ movie }: CardProps) {
   return (
-    <div className="movieCard">
+    <div className="movieCard" id={movie.id}>
       <img src={movie.poster} alt={movie.title} className="movieImage" />
       <h2>{movie.title}</h2>
       <h3>{movie.year}</h3>

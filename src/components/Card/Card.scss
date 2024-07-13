@@ -7,9 +7,15 @@
   border-radius: 6px;
   background-color: $card-color;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s;
 
   .movieImage {
     width: 100%;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: $hover-card-color;
   }
 }
 

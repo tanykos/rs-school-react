@@ -12,6 +12,18 @@ export interface MovieApi {
   Poster: string;
 }
 
+export interface MovieDetails {
+  imdbID: string;
+  Title: string;
+  Year: string;
+  Genre: string;
+  Country: string;
+  Runtime: string;
+  Actors: string;
+  Plot: string;
+  Language: string;
+}
+
 export interface SearchSectionProps {
   onSearchResults: (results: Movie[]) => void;
   onLoading: (loading: boolean) => void;
