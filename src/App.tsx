@@ -16,25 +16,29 @@ export default function App() {
   const handleLeftBoxClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     const card = (event.target as HTMLElement).closest('.movieCard');
-    console.log('in Click: card: ', card);
+
     if (card) {
       const movieId = card.id;
       const searchParams = new URLSearchParams(location.search);
       searchParams.set('movieId', movieId);
       navigate(`${Paths.DETAILS}?movieId=${movieId}`);
-    } else if ((event.target as HTMLElement).classList.contains('cardList')) {
+    } else {
       navigate('/');
     }
   };
 
+  const handleRightBoxClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+  };
+
   return (
-    <div className="app">
+    <div className="app" onClick={handleLeftBoxClick}>
       <SearchSection onSearchResults={setResults} onLoading={setLoading} />
       <div className="main-wrap">
-        <div className="left-box" onClick={handleLeftBoxClick}>
+        <div className="left-box">
           <CardList results={results} loading={loading} />
         </div>
-        <div className={`right-box ${!isDetailsOpen ? 'hide' : ''}`}>
+        <div className={`right-box ${!isDetailsOpen ? 'hide' : ''}`} onClick={handleRightBoxClick}>
           <button className={`close-button ${!isDetailsOpen ? 'hide' : ''}`} onClick={() => navigate('/')}>
             Close
           </button>

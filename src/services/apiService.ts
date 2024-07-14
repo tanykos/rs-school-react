@@ -42,7 +42,6 @@ export const fetchItemById = async (id: string): Promise<MovieDetails | null> =>
     });
 
     if (response.data.Response === 'True') {
-      console.log('in API response.data: ', response.data);
       return response.data;
     } else {
       console.error('Error fetching data:', response.data.Error);
