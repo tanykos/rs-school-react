@@ -11,7 +11,7 @@
     "format:fix": "prettier --write 'src/**/*.{ts,tsx,json,scss}'",
     "preview": "vite preview",
     "prepare": "husky",
-    "test": "vitest",
+    "test": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
