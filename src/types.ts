@@ -12,6 +12,11 @@ export interface MovieApi {
   Poster: string;
 }
 
+export interface SearchResponse {
+  results: Movie[];
+  totalPages: number;
+}
+
 export interface MovieDetails {
   imdbID: string;
   Title: string;
@@ -25,6 +30,8 @@ export interface MovieDetails {
 }
 
 export interface SearchSectionProps {
-  onSearchResults: (results: Movie[]) => void;
+  onSearchResults: (results: { results: Movie[]; totalPages: number }) => void;
   onLoading: (loading: boolean) => void;
+  setPage: (p: number) => void;
+  currentPage: number;
 }
