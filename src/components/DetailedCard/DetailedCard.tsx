@@ -28,7 +28,7 @@ export default function DetailedCard() {
   }, [fetchItemHandler, movieId]);
 
   return (
-    <div className="detailedCard">
+    <div className="detailedCard" data-testid="detailed-card">
       <h2>Movie Details:</h2>
       {loading && <p>Loading...</p>}
       {!loading && movie && (

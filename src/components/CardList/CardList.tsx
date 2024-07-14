@@ -12,6 +12,8 @@ export default function CardList({ results, loading }: CardListProps) {
     <div className="cardList">
       {loading ? (
         <div className="loader">Loading...</div>
+      ) : results.length === 0 ? (
+        <div className="noMovies">No movies found</div>
       ) : (
         results.map((movie) => <Card key={movie.id} movie={movie} />)
       )}
