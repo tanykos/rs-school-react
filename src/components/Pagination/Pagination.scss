@@ -1,0 +1,20 @@
+@import '../../styles/variables';
+
+.page-btn {
+  padding: 0.5rem;
+  background-color: transparent;
+  border-color: $main-color;
+  transition: all 0.5s;
+
+  &:first-child {
+    margin-right: 1rem;
+  }
+
+  &:last-child {
+    margin-left: 1rem;
+  }
+
+  &:hover:not([disabled]) {
+    background-color: $main-color;
+  }
+}

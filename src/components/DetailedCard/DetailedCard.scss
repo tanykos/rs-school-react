@@ -1,0 +1,21 @@
+@import '../../styles/variables';
+
+.detailedCard {
+  h2 {
+    margin-top: 5rem;
+  }
+  .movieDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    .detailRow {
+      text-align: left;
+      .itemTitle {
+        font-weight: 800;
+      }
+    }
+  }
+}

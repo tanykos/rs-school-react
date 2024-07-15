@@ -1,31 +1,21 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 
-interface State {
-  throwError: boolean;
-}
+export default function ErrorThrowButton() {
+  const [throwError, setThrowError] = useState<boolean>(false);
 
-class ErrorThrowButton extends Component<object, State> {
-  state: State = {
-    throwError: false,
+  const triggerError = () => {
+    setThrowError(true);
   };
 
-  triggerError = () => {
-    this.setState({ throwError: true });
-  };
-
-  componentDidUpdate(_prevProps: object, prevState: State) {
-    if (this.state.throwError && !prevState.throwError) {
+  useEffect(() => {
+    if (throwError) {
       throw new Error('Throw Error Button is clicked!');
     }
-  }
+  }, [throwError]);
 
-  render() {
-    return (
-      <button onClick={this.triggerError} className="errorBtn">
-        Throw Error
-      </button>
-    );
-  }
+  return (
+    <button onClick={triggerError} className="errorBtn">
+      Throw Error
+    </button>
+  );
 }
-
-export default ErrorThrowButton;

@@ -12,17 +12,26 @@ export interface MovieApi {
   Poster: string;
 }
 
-export interface SearchSectionProps {
-  onSearchResults: (results: Movie[]) => void;
-  onLoading: (loading: boolean) => void;
-}
-
-export interface SearchComponentState {
-  searchTerm: string;
-  loading: boolean;
-}
-
-export interface AppState {
+export interface SearchResponse {
   results: Movie[];
-  loading: boolean;
+  totalPages: number;
+}
+
+export interface MovieDetails {
+  imdbID: string;
+  Title: string;
+  Year: string;
+  Genre: string;
+  Country: string;
+  Runtime: string;
+  Actors: string;
+  Plot: string;
+  Language: string;
+}
+
+export interface SearchSectionProps {
+  onSearchResults: (results: { results: Movie[]; totalPages: number }) => void;
+  onLoading: (loading: boolean) => void;
+  setPage: (p: number) => void;
+  currentPage: number;
 }

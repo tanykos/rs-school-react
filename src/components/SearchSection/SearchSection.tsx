@@ -1,89 +1,64 @@
-import { fetchItems } from '../../services/apiService';
-import { SearchComponentState, SearchSectionProps } from '../../types';
-import ErrorThrowButton from '../ErrorThrowButton/ErrorThrowButton';
 import './SearchSection.scss';
-import { Component } from 'react';
+import { fetchItems } from '../../services/apiService';
+import { SearchSectionProps } from '../../types';
+import ErrorThrowButton from '../ErrorThrowButton/ErrorThrowButton';
+import { useCallback, useEffect, useState } from 'react';
+import useSearchTerm from '../../hooks/useLocalStorage';
 
-class SearchSection extends Component<SearchSectionProps, SearchComponentState> {
-  state: SearchComponentState = {
-    searchTerm: '',
-    loading: false,
+export default function SearchSection({ onSearchResults, onLoading, setPage, currentPage }: SearchSectionProps) {
+  const [searchTerm, setSearchTerm] = useSearchTerm('searchTerm', '');
+  const [inputValue, setInputValue] = useState(searchTerm);
+
+  const fetchItemsHandler = useCallback(
+    async (term: string, page: number = 1) => {
+      try {
+        onLoading(true);
+        const response = await fetchItems(term, page);
+        if (response) {
+          onSearchResults({ results: response.results, totalPages: response.totalPages });
+        } else {
+          onSearchResults({ results: [], totalPages: 0 });
+        }
+      } catch (error) {
+        console.error('Error fetching initial items:', error);
+      } finally {
+        onLoading(false);
+      }
+    },
+    [onLoading, onSearchResults],
+  );
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
   };
 
-  fetchInitialItems = async () => {
-    const { searchTerm } = this.state;
-    const { onSearchResults, onLoading } = this.props;
-
-    try {
-      this.setState({ loading: true });
-      onLoading(true);
-      const res = await fetchItems(searchTerm);
-      onSearchResults(res);
-    } catch (error) {
-      console.error('Error fetching initial items:', error);
-    } finally {
-      this.setState({ loading: false });
-      onLoading(false);
-    }
-  };
-
-  componentDidMount() {
-    const savedSearchTerm = localStorage.getItem('searchTerm');
-    if (savedSearchTerm) {
-      this.setState({ searchTerm: savedSearchTerm }, this.fetchInitialItems);
-    } else {
-      this.fetchInitialItems();
-    }
-  }
-
-  handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ searchTerm: event.target.value });
-  };
-
-  handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const { searchTerm } = this.state;
-    const { onSearchResults, onLoading } = this.props;
-    const trimmedSearchTerm = searchTerm.trim();
-
-    try {
-      this.setState({ loading: true });
-      onLoading(true);
-      const res = await fetchItems(trimmedSearchTerm);
-      localStorage.setItem('searchTerm', trimmedSearchTerm);
-      onSearchResults(res);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      this.setState({ loading: false });
-      onLoading(false);
-    }
+    const trimmedSearchTerm = inputValue.trim();
+    setSearchTerm(trimmedSearchTerm);
+    setPage(1);
+    fetchItemsHandler(trimmedSearchTerm, 1);
   };
 
-  render() {
-    const { searchTerm, loading } = this.state;
+  useEffect(() => {
+    fetchItemsHandler(searchTerm, currentPage);
+  }, [currentPage, fetchItemsHandler, searchTerm]);
 
-    return (
-      <div className="searchSection">
-        <h1>Search movies</h1>
-        <form onSubmit={this.handleSearch} className="searchRow">
-          <input
-            className="search"
-            type="text"
-            value={searchTerm}
-            onChange={this.handleInputChange}
-            placeholder="Enter a word in English..."
-          />
-          <button type="submit" disabled={loading}>
-            Search
-          </button>
+  return (
+    <div className="searchSection">
+      <h1>Search movies</h1>
+      <form onSubmit={handleSearch} className="searchRow">
+        <input
+          className="search"
+          type="text"
+          value={inputValue}
+          onChange={handleInputChange}
+          placeholder="Enter a word in English..."
+        />
+        <button type="submit">Search</button>
 
-          <ErrorThrowButton />
-        </form>
-      </div>
-    );
-  }
+        <ErrorThrowButton />
+      </form>
+    </div>
+  );
 }
-
-export default SearchSection;
