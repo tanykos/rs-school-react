@@ -37,13 +37,13 @@ vi.mock('./services/apiService', () => ({
 }));
 
 describe('App Component', () => {
-  test('renders search movies heading', () => {
+  test('renders search movies heading', async () => {
     render(
       <BrowserRouter>
         <App />
       </BrowserRouter>,
     );
-    const headingElement = screen.getByText(/search movies/i);
+    const headingElement = await waitFor(() => screen.getByText(/search movies/i));
     expect(headingElement).toBeInTheDocument();
   });
 
@@ -54,9 +54,10 @@ describe('App Component', () => {
       </BrowserRouter>,
     );
 
-    const loader = screen.getByText(/Loading/i);
-
-    expect(loader).toBeInTheDocument();
+    await waitFor(() => {
+      const loader = screen.getByText(/Loading/i);
+      expect(loader).toBeInTheDocument();
+    });
   });
 
   test('clicking on a card opens a detailed card component', async () => {
