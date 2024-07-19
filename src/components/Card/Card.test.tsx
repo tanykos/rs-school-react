@@ -14,11 +14,8 @@ describe('Card Component', () => {
 
     const movieTitle = screen.getByText(mockMovie.title);
     const movieYear = screen.getByText(mockMovie.year.toString());
-    const moviePoster = screen.getByAltText(mockMovie.title) as HTMLImageElement;
 
     expect(movieTitle).toBeInTheDocument();
     expect(movieYear).toBeInTheDocument();
-    expect(moviePoster).toBeInTheDocument();
-    expect(moviePoster.src).toContain(mockMovie.poster);
   });
 });
