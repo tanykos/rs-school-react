@@ -3,7 +3,7 @@ import CardList from './components/CardList/CardList';
 import SearchSection from './components/SearchSection/SearchSection';
 import { Movie } from './types';
 import { useCallback, useEffect, useState } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useMatch, useNavigate } from 'react-router-dom';
 import { Paths } from './router/routesConstants';
 import Pagination from './components/Pagination/Pagination';
 
@@ -13,7 +13,7 @@ export default function App() {
   const [totalPages, setTotalPages] = useState<number>(0);
   const location = useLocation();
   const navigate = useNavigate();
-  const isDetailsOpen = location.pathname === Paths.DETAILS;
+  const matchDetails = useMatch(Paths.DETAILS);
   const searchParams = new URLSearchParams(location.search);
   const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('page') || '1', 10));
 
@@ -67,8 +67,8 @@ export default function App() {
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
           )}
         </div>
-        <div className={`right-box ${!isDetailsOpen ? 'hide' : ''}`} onClick={handleRightBoxClick}>
-          <button className={`close-button ${!isDetailsOpen ? 'hide' : ''}`} onClick={deleteMovieIdFromUrl}>
+        <div className={`right-box ${!matchDetails ? 'hide' : ''}`} onClick={handleRightBoxClick}>
+          <button className={`close-button ${!matchDetails ? 'hide' : ''}`} onClick={deleteMovieIdFromUrl}>
             Close
           </button>
           <Outlet />

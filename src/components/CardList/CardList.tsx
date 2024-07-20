@@ -8,15 +8,17 @@ interface CardListProps {
 }
 
 export default function CardList({ results, loading }: CardListProps) {
-  return (
-    <div className="cardList">
-      {loading ? (
-        <div className="loader">Loading...</div>
-      ) : results.length === 0 ? (
-        <div className="noMovies">No movies found</div>
-      ) : (
-        results.map((movie) => <Card key={movie.id} movie={movie} />)
-      )}
-    </div>
-  );
+  const renderContent = () => {
+    if (loading) {
+      return <div className="loader">Loading...</div>;
+    }
+
+    if (results.length === 0) {
+      return <div className="noMovies">No movies found</div>;
+    }
+
+    return results.map((movie) => <Card key={movie.id} movie={movie} />);
+  };
+
+  return <div className="cardList">{renderContent()}</div>;
 }
