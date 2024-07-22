@@ -17,6 +17,12 @@ export interface SearchResponse {
   totalPages: number;
 }
 
+export interface SearchResponseApi {
+  Search: MovieApi[];
+  totalResults: string;
+  Response: string;
+}
+
 export interface MovieDetails {
   imdbID: string;
   Title: string;
