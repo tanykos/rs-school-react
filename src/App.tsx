@@ -4,17 +4,19 @@ import SearchSection from './components/SearchSection/SearchSection';
 import { Outlet, useLocation, useMatch, useNavigate } from 'react-router-dom';
 import { Paths } from './router/routesConstants';
 import Pagination from './components/Pagination/Pagination';
-import { useAppSelector } from './hooks/redux';
+import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { moviesApi } from './services/apiService';
-import useSearchTerm from './hooks/useLocalStorage';
+import useLocalStorage from './hooks/useLocalStorage';
+import { setActiveMovie } from './store/slices/moviesSlice';
 
 export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const matchDetails = useMatch(Paths.DETAILS);
   const searchParams = new URLSearchParams(location.search);
 
-  const [searchTerm] = useSearchTerm('searchTerm', '');
+  const [searchTerm] = useLocalStorage('searchTerm', '');
   const currentPage = useAppSelector((state) => state.page.currentPage);
 
   const { data, error, isLoading } = moviesApi.useFetchMoviesQuery({
@@ -32,11 +34,12 @@ export default function App() {
     const card = (event.target as HTMLElement).closest('.movieCard');
 
     if (card) {
-      const movieId = card.id;
-      searchParams.set('movieId', movieId);
+      dispatch(setActiveMovie(card.id));
+      searchParams.set('movieId', card.id);
       navigate(`${Paths.DETAILS}?${searchParams.toString()}`);
     } else {
       deleteMovieIdFromUrl();
+      dispatch(setActiveMovie(''));
     }
   };
 

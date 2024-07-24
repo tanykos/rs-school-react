@@ -9,7 +9,7 @@ export default function CardList() {
   const currentPage = useAppSelector((state) => state.page.currentPage);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const searchTerm = searchParams.get('search') || 'movie';
+  const searchTerm = searchParams.get('search') || '';
   const { data, error, isLoading } = moviesApi.useFetchMoviesQuery({ term: searchTerm, page: currentPage });
 
   const renderContent = () => {

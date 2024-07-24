@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { MovieApi, MovieDetails, SearchResponse, SearchResponseApi } from '../types';
+import { defaultSearch } from '../shared/constants';
 
 const API_KEY = '2c84d336';
 const API_URL = 'https://www.omdbapi.com/';
-const defaultSearch = 'movie';
 
 export const moviesApi = createApi({
   reducerPath: 'moviesApi',
@@ -13,7 +13,7 @@ export const moviesApi = createApi({
       query: ({ term = defaultSearch, page = 1 }) => ({
         url: '',
         params: {
-          s: term,
+          s: term || defaultSearch,
           page,
           apikey: API_KEY,
         },

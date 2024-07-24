@@ -1,7 +1,7 @@
 import './SearchSection.scss';
 import ErrorThrowButton from '../ErrorThrowButton/ErrorThrowButton';
 import { useState } from 'react';
-import useSearchTerm from '../../hooks/useLocalStorage';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import { useAppDispatch } from '../../hooks/redux';
 import { setPage } from '../../store/slices/pageSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -12,7 +12,7 @@ export default function SearchSection() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useSearchTerm('searchTerm', '');
+  const [searchTerm, setSearchTerm] = useLocalStorage('searchTerm');
   const [inputValue, setInputValue] = useState(searchTerm);
   const searchParams = new URLSearchParams(location.search);
 

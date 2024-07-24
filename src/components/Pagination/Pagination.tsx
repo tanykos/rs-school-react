@@ -11,7 +11,7 @@ export default function Pagination() {
   const dispatch = useAppDispatch();
   const currentPage = useAppSelector((state) => state.page.currentPage);
   const searchParams = new URLSearchParams(location.search);
-  const searchTerm = searchParams.get('search') || 'movie';
+  const searchTerm = searchParams.get('search') || '';
   const { data } = moviesApi.useFetchMoviesQuery({ term: searchTerm, page: currentPage });
 
   useEffect(() => {

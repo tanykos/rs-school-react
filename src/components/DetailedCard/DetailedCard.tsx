@@ -1,23 +1,10 @@
-import { useLocation } from 'react-router-dom';
 import './DetailedCard.scss';
-import { useCallback, useEffect, useState } from 'react';
 import { moviesApi } from '../../services/apiService';
+import { useAppSelector } from '../../hooks/redux';
 
 export default function DetailedCard() {
-  const location = useLocation();
-  const urlParams = new URLSearchParams(location.search);
-  const movieIdFromUrl = urlParams.get('movieId') || '';
-  const [movieId, setMovieId] = useState<string>(movieIdFromUrl);
-
-  const { data, isLoading } = moviesApi.useFetchMovieByIdQuery(movieId);
-
-  const fetchItemHandler = useCallback(async (movieId: string) => {
-    setMovieId(movieId);
-  }, []);
-
-  useEffect(() => {
-    fetchItemHandler(movieId);
-  }, [fetchItemHandler, movieId]);
+  const activeMovie = useAppSelector((state) => state.movies.activeMovie);
+  const { data, isLoading } = moviesApi.useFetchMovieByIdQuery(activeMovie);
 
   return (
     <div className="detailedCard" data-testid="detailed-card">
