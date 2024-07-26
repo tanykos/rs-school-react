@@ -11,7 +11,8 @@ export default function CardList() {
   const searchParams = new URLSearchParams(location.search);
   const searchTerm = searchParams.get('search') || '';
   const { data, error, isLoading } = moviesApi.useFetchMoviesQuery({ term: searchTerm, page: currentPage });
-
+  const selectedMovies = useAppSelector((state) => state.movies.selectedMovies);
+  console.log('selectedMovies in List: ', selectedMovies);
   const renderContent = () => {
     if (isLoading) {
       return <div className="loader">Loading...</div>;

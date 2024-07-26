@@ -1,5 +1,8 @@
 import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import Card from './Card';
+import { configureStore } from '@reduxjs/toolkit';
+import moviesReducer from '../../store/slices/moviesSlice';
 
 describe('Card Component', () => {
   const mockMovie = {
@@ -9,8 +12,26 @@ describe('Card Component', () => {
     year: '2023',
   };
 
+  const mockStore = configureStore({
+    reducer: {
+      movies: moviesReducer,
+    },
+    preloadedState: {
+      movies: {
+        selectedMovies: [],
+        results: [],
+        totalPages: 0,
+        activeMovie: '',
+      },
+    },
+  });
+
   test('renders the relevant card data', () => {
-    render(<Card movie={mockMovie} />);
+    render(
+      <Provider store={mockStore}>
+        <Card movie={mockMovie} />
+      </Provider>,
+    );
 
     const movieTitle = screen.getByText(mockMovie.title);
     const movieYear = screen.getByText(mockMovie.year.toString());

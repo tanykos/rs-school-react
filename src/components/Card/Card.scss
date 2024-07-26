@@ -9,6 +9,17 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: all 0.5s;
 
+  .top-row {
+    display: flex;
+    justify-content: end;
+    padding-bottom: 0.5rem;
+  }
+
+  &.selected {
+    background-color: $hover-card-color;
+    box-shadow: 0 0 10px $gray-light-color;
+  }
+
   .movieImage {
     width: 100%;
     height: 320px;
@@ -26,7 +37,16 @@
 
   &:hover {
     cursor: pointer;
-    background-color: $hover-card-color;
+    background-color: lighten($card-color, 5%);
+    &.selected {
+      background-color: lighten($hover-card-color, 10%);
+    }
+  }
+
+  .custom-checkbox {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-right: 0;
   }
 }
 

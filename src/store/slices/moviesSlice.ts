@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Movie } from '../../types';
-
+import { Movie, MovieDetails } from '../../types';
+import { moviesApi } from '../../services/apiService';
 export interface MoviesState {
   results: Movie[];
   totalPages: number;
   activeMovie: string;
-  selectedMovie: Movie | null;
+  selectedMovies: MovieDetails[];
 }
 
 const getActiveMovieFromUrl = (): string => {
@@ -18,7 +18,7 @@ const initialState: MoviesState = {
   results: [],
   totalPages: 0,
   activeMovie: getActiveMovieFromUrl(),
-  selectedMovie: null,
+  selectedMovies: [],
 };
 
 const moviesSlice = createSlice({
@@ -34,11 +34,21 @@ const moviesSlice = createSlice({
     setActiveMovie(state, action: PayloadAction<string>) {
       state.activeMovie = action.payload;
     },
-    setSelectedMovie(state, action: PayloadAction<Movie | null>) {
-      state.selectedMovie = action.payload;
-    },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      moviesApi.endpoints.fetchMovieById.matchFulfilled,
+      (state, action: PayloadAction<MovieDetails>) => {
+        const index = state.selectedMovies.findIndex((movie) => movie.id === action.payload.id);
+        if (index === -1) {
+          state.selectedMovies.push(action.payload);
+        } else {
+          state.selectedMovies.splice(index, 1);
+        }
+      },
+    );
   },
 });
 
-export const { setResults, setTotalPages, setActiveMovie, setSelectedMovie } = moviesSlice.actions;
+export const { setResults, setTotalPages, setActiveMovie } = moviesSlice.actions;
 export default moviesSlice.reducer;

@@ -23,7 +23,7 @@ export interface SearchResponseApi {
   Response: string;
 }
 
-export interface MovieDetails {
+export interface MovieDetailsApi {
   imdbID: string;
   Title: string;
   Year: string;
@@ -33,6 +33,18 @@ export interface MovieDetails {
   Actors: string;
   Plot: string;
   Language: string;
+}
+
+export interface MovieDetails {
+  id: string;
+  title: string;
+  year: string;
+  genre: string;
+  country: string;
+  runtime: string;
+  actors: string;
+  plot: string;
+  language: string;
 }
 
 export interface SearchSectionProps {

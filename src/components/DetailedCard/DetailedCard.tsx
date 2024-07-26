@@ -13,28 +13,28 @@ export default function DetailedCard() {
       {!isLoading && data && (
         <div className="movieDetails">
           <div className="detailRow">
-            <span className="itemTitle">Title:</span> <span>{data.Title}</span>
+            <span className="itemTitle">Title:</span> <span>{data.title}</span>
           </div>
           <div className="detailRow">
-            <span className="itemTitle">Year:</span> <span>{data.Year}</span>
+            <span className="itemTitle">Year:</span> <span>{data.year}</span>
           </div>
           <div className="detailRow">
-            <span className="itemTitle">Genre:</span> <span>{data.Genre}</span>
+            <span className="itemTitle">Genre:</span> <span>{data.genre}</span>
           </div>
           <div className="detailRow">
-            <span className="itemTitle">Country:</span> <span>{data.Country}</span>
+            <span className="itemTitle">Country:</span> <span>{data.country}</span>
           </div>
           <div className="detailRow">
-            <span className="itemTitle">Language:</span> <span>{data.Language}</span>
+            <span className="itemTitle">Language:</span> <span>{data.language}</span>
           </div>
           <div className="detailRow">
-            <span className="itemTitle">Runtime:</span> <span>{data.Runtime}</span>
+            <span className="itemTitle">Runtime:</span> <span>{data.runtime}</span>
           </div>
           <div className="detailRow">
-            <span className="itemTitle">Actors:</span> <span>{data.Actors}</span>
+            <span className="itemTitle">Actors:</span> <span>{data.actors}</span>
           </div>
           <div className="detailRow">
-            <span className="itemTitle">Plot:</span> <span>{data.Plot}</span>
+            <span className="itemTitle">Plot:</span> <span>{data.plot}</span>
           </div>
         </div>
       )}

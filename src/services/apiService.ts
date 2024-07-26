@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { MovieApi, MovieDetails, SearchResponse, SearchResponseApi } from '../types';
+import { MovieApi, MovieDetails, MovieDetailsApi, SearchResponse, SearchResponseApi } from '../types';
 import { defaultSearch } from '../shared/constants';
 
 const API_KEY = '2c84d336';
@@ -47,6 +47,19 @@ export const moviesApi = createApi({
           apikey: API_KEY,
         },
       }),
+      transformResponse: (response: MovieDetailsApi): MovieDetails => {
+        return {
+          id: response.imdbID,
+          title: response.Title,
+          year: response.Year,
+          genre: response.Genre,
+          country: response.Country,
+          runtime: response.Runtime,
+          actors: response.Actors,
+          plot: response.Plot,
+          language: response.Language,
+        };
+      },
     }),
   }),
 });
