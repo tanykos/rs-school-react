@@ -14,7 +14,7 @@ export default function CardList() {
   const { data, error, isLoading } = moviesApi.useFetchMoviesQuery({ term: searchTerm, page: currentPage });
   const selectedMovies = useAppSelector((state) => state.movies.selectedMovies);
   const selectedCount = selectedMovies.length;
-  console.log('selectedMovies in List: ', selectedMovies);
+
   const renderContent = () => {
     if (isLoading) {
       return <div className="loader">Loading...</div>;

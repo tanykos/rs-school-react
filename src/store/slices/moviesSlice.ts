@@ -34,6 +34,9 @@ const moviesSlice = createSlice({
     setActiveMovie(state, action: PayloadAction<string>) {
       state.activeMovie = action.payload;
     },
+    unselectMovies(state) {
+      state.selectedMovies = [];
+    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -50,5 +53,5 @@ const moviesSlice = createSlice({
   },
 });
 
-export const { setResults, setTotalPages, setActiveMovie } = moviesSlice.actions;
+export const { setResults, setTotalPages, setActiveMovie, unselectMovies } = moviesSlice.actions;
 export default moviesSlice.reducer;

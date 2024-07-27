@@ -1,4 +1,5 @@
 @import '../../styles/variables';
+@import '../../styles/mixins';
 
 .flyout {
   position: fixed;
@@ -18,5 +19,14 @@
 
   &.visible {
     transform: translateY(0);
+  }
+
+  .info {
+    padding-bottom: 1rem;
+  }
+
+  .secondary-btn {
+    text-decoration: none;
+    color: inherit;
   }
 }

@@ -1,0 +1,20 @@
+@mixin button-styles($color-btn) {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s;
+  background-color: $color-btn;
+
+  &:hover:not([disabled]) {
+    background-color: darken($color-btn, 10%);
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
