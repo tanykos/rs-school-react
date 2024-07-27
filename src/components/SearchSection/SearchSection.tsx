@@ -1,5 +1,4 @@
 import './SearchSection.scss';
-import ErrorThrowButton from '../ErrorThrowButton/ErrorThrowButton';
 import { useState } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { useAppDispatch } from '../../hooks/redux';
@@ -39,8 +38,6 @@ export default function SearchSection() {
           placeholder="Enter a word in English..."
         />
         <button type="submit">Search</button>
-
-        <ErrorThrowButton />
       </form>
     </div>
   );
