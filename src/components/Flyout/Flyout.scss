@@ -4,12 +4,12 @@
 .flyout {
   position: fixed;
   bottom: 1rem;
-  background-color: $body-color;
+  background-color: var(--body-color);
   text-align: center;
   padding: 1rem;
-  border: 3px solid $button-color;
+  border: 3px solid var(--button-color);
   border-radius: 6px;
-  box-shadow: 0 0 10px $button-color;
+  box-shadow: 0 0 10px var(--button-color);
   z-index: 1000;
   transition: transform 0.3s ease-in-out;
 
@@ -27,6 +27,5 @@
 
   .secondary-btn {
     text-decoration: none;
-    color: inherit;
   }
 }

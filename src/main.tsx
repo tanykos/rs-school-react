@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { routes } from './router/routes.tsx';
 import { Provider } from 'react-redux';
 import { initStore } from './store/store.ts';
+import { ThemeProvider } from './context/ThemeContext.tsx';
 
 const browserRouter = createBrowserRouter(routes);
 
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ErrorBoundary>
       <Provider store={initStore()}>
-        <RouterProvider router={browserRouter} />
+        <ThemeProvider>
+          <RouterProvider router={browserRouter} />
+        </ThemeProvider>
       </Provider>
     </ErrorBoundary>
   </React.StrictMode>,

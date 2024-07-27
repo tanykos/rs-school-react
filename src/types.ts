@@ -1,3 +1,5 @@
+export type Theme = 'light' | 'dark';
+
 export interface Movie {
   id: string;
   title: string;

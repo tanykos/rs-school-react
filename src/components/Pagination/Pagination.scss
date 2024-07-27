@@ -3,7 +3,7 @@
 .page-btn {
   padding: 0.5rem;
   background-color: transparent;
-  border-color: $main-color;
+  border-color: var(--main-color);
   transition: all 0.5s;
 
   &:first-child {
@@ -15,6 +15,6 @@
   }
 
   &:hover:not([disabled]) {
-    background-color: $main-color;
+    background-color: var(--main-color);
   }
 }

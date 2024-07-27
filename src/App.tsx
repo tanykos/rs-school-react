@@ -8,8 +8,12 @@ import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { moviesApi } from './services/apiService';
 import useLocalStorage from './hooks/useLocalStorage';
 import { setActiveMovie } from './store/slices/moviesSlice';
+import ThemeSelector from './components/ThemeSelector/ThemeSelector';
+import { ThemeContext } from './context/ThemeContext';
+import { useContext } from 'react';
 
 export default function App() {
+  const { theme } = useContext(ThemeContext);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -50,7 +54,8 @@ export default function App() {
   if (error) return <h1>Error in Data fetching.</h1>;
 
   return (
-    <div className="app" onClick={handleLeftBoxClick}>
+    <div className="app" onClick={handleLeftBoxClick} data-theme={theme}>
+      <ThemeSelector />
       <SearchSection />
       <div className="main-wrap">
         <div className="left-box">

@@ -11,7 +11,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  accent-color: $button-color;
+  accent-color: var(--button-color);
 }
 
 body {
@@ -19,8 +19,6 @@ body {
   margin: 0;
   display: flex;
   justify-content: center;
-  background-color: $body-color;
-  color: $text-color;
 }
 
 h1 {
@@ -47,18 +45,18 @@ h3 {
 }
 
 button {
-  @include button-styles($button-color);
+  @include button-styles(var(--button-color), var(--button-hover-color));
 }
 
 .secondary-btn {
-  @include button-styles($main-color);
+  @include button-styles(var(--secondary-color), var(--secondary-color-hover));
 }
 
 .loader {
   display: inline-block;
   margin-left: 10px;
   font-size: 2em;
-  color: $gray-color;
+  color: var(--gray-color);
 }
 
 .mr-1 {

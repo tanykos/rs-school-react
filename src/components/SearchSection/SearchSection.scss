@@ -2,7 +2,7 @@
 @import '../../styles/mixins';
 
 .searchSection {
-  background-color: $main-color;
+  background-color: var(--main-color);
   padding-bottom: 1.5rem;
 }
 
@@ -17,6 +17,6 @@
 }
 
 .errorBtn {
-  @include button-styles($error-bg);
+  @include button-styles(var(--error-bg), var(--error-bg-dark));
   margin-left: 1rem;
 }

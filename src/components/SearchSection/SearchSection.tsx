@@ -6,8 +6,6 @@ import { useAppDispatch } from '../../hooks/redux';
 import { setPage } from '../../store/slices/pageSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-//set searchTerm to LS and set currentPage = 1
-
 export default function SearchSection() {
   const dispatch = useAppDispatch();
   const location = useLocation();

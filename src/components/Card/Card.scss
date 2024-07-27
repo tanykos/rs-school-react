@@ -5,7 +5,7 @@
   margin-bottom: 20px;
   padding: 10px;
   border-radius: 6px;
-  background-color: $card-color;
+  background-color: var(--card-color);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: all 0.5s;
 
@@ -16,8 +16,8 @@
   }
 
   &.selected {
-    background-color: $hover-card-color;
-    box-shadow: 0 0 10px $gray-light-color;
+    background-color: var(--hover-card-color);
+    box-shadow: 0 0 10px var(--gray-light-color);
   }
 
   .movieImage {
@@ -37,9 +37,9 @@
 
   &:hover {
     cursor: pointer;
-    background-color: lighten($card-color, 5%);
+    background-color: var(--card-color-light);
     &.selected {
-      background-color: lighten($hover-card-color, 10%);
+      background-color: var(--hover-card-color-light);
     }
   }
 
@@ -57,9 +57,9 @@
 }
 
 .movieYear {
-  color: $gray-light-color;
+  color: var(--gray-light-color);
 }
 
 .movieTitle {
-  color: $gray-middle-color;
+  color: var(--gray-middle-color);
 }
