@@ -4,6 +4,7 @@ import { moviesApi } from '../../services/apiService';
 import Card from '../Card/Card';
 import './CardList.scss';
 import { Movie } from '../../types';
+import Flyout from '../Flyout/Flyout';
 
 export default function CardList() {
   const currentPage = useAppSelector((state) => state.page.currentPage);
@@ -12,6 +13,7 @@ export default function CardList() {
   const searchTerm = searchParams.get('search') || '';
   const { data, error, isLoading } = moviesApi.useFetchMoviesQuery({ term: searchTerm, page: currentPage });
   const selectedMovies = useAppSelector((state) => state.movies.selectedMovies);
+  const selectedCount = selectedMovies.length;
   console.log('selectedMovies in List: ', selectedMovies);
   const renderContent = () => {
     if (isLoading) {
@@ -33,5 +35,10 @@ export default function CardList() {
     if (data) return data.results.map((movie: Movie) => <Card key={movie.id} movie={movie} />);
   };
 
-  return <div className="cardList">{renderContent()}</div>;
+  return (
+    <div className="cardList">
+      {renderContent()}
+      {!!selectedCount && <Flyout itemCount={selectedCount} />}
+    </div>
+  );
 }
