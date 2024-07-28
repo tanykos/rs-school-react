@@ -30,7 +30,7 @@ export default function Flyout({ itemCount }: FlyoutProps) {
   };
 
   return (
-    <div className={`flyout ${itemCount > 0 ? 'visible' : 'hidden'}`}>
+    <div className={`flyout ${itemCount > 0 ? 'visible' : 'hidden'}`} data-testid="flyout">
       <p className="info">{itemCount} item(s) selected</p>
       <button className="mr-1" onClick={handleUnselect}>
         Unselect all

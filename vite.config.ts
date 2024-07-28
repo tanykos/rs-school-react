@@ -12,6 +12,8 @@ export default defineConfig({
       provider: 'istanbul',
       reporter: ['text', 'json', 'html'],
       all: true,
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: ['**/*.test.{ts,tsx}', 'vitest.setup.ts'],
       thresholds: {
         global: {
           statements: 80,

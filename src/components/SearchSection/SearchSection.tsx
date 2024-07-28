@@ -29,7 +29,7 @@ export default function SearchSection() {
   return (
     <div className="searchSection">
       <h1>Search movies</h1>
-      <form onSubmit={handleSearch} className="searchRow">
+      <form onSubmit={handleSearch} className="searchRow" data-testid="search-form">
         <input
           className="search"
           type="text"

@@ -38,6 +38,7 @@ export default function Card({ movie: { id, title, year, poster } }: CardProps) 
           checked={checked}
           onChange={handleCheckboxChange}
           onClick={(e) => e.stopPropagation()}
+          data-testid="card-checkbox"
         />
       </div>
 

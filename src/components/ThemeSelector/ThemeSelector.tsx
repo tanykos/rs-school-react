@@ -6,7 +6,7 @@ const ThemeSelector = () => {
   const { theme, setTheme } = useContext(ThemeContext);
 
   return (
-    <div className="themeSelector">
+    <div className="themeSelector" data-testid="theme-selector">
       <label>
         <input type="radio" value="light" checked={theme === 'light'} onChange={() => setTheme('light')} />
         Light
