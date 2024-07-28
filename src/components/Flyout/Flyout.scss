@@ -1,0 +1,31 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.flyout {
+  position: fixed;
+  bottom: 1rem;
+  background-color: var(--body-color);
+  text-align: center;
+  padding: 1rem;
+  border: 3px solid var(--button-color);
+  border-radius: 6px;
+  box-shadow: 0 0 10px var(--button-color);
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+
+  &.hidden {
+    transform: translateY(100%);
+  }
+
+  &.visible {
+    transform: translateY(0);
+  }
+
+  .info {
+    padding-bottom: 1rem;
+  }
+
+  .secondary-btn {
+    text-decoration: none;
+  }
+}

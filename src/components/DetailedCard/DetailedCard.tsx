@@ -1,61 +1,40 @@
-import { useLocation } from 'react-router-dom';
 import './DetailedCard.scss';
-import { useCallback, useEffect, useState } from 'react';
-import { fetchItemById } from '../../services/apiService';
-import { MovieDetails } from '../../types';
+import { moviesApi } from '../../services/apiService';
+import { useAppSelector } from '../../hooks/redux';
 
 export default function DetailedCard() {
-  const location = useLocation();
-  const urlParams = new URLSearchParams(location.search);
-  const movieId = urlParams.get('movieId') || '';
-  const [movie, setMovie] = useState<MovieDetails | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const fetchItemHandler = useCallback(async (movieId: string) => {
-    try {
-      setLoading(true);
-      const res = await fetchItemById(movieId);
-      setMovie(res);
-    } catch (error) {
-      console.error('Error fetching initial items:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchItemHandler(movieId);
-  }, [fetchItemHandler, movieId]);
+  const activeMovie = useAppSelector((state) => state.movies.activeMovie);
+  const { data, isLoading } = moviesApi.useFetchMovieByIdQuery(activeMovie);
 
   return (
     <div className="detailedCard" data-testid="detailed-card">
       <h2>Movie Details:</h2>
-      {loading && <p>Loading...</p>}
-      {!loading && movie && (
+      {isLoading && <p>Loading...</p>}
+      {!isLoading && data && (
         <div className="movieDetails">
           <div className="detailRow">
-            <span className="itemTitle">Title:</span> <span>{movie.Title}</span>
+            <span className="itemTitle">Title:</span> <span>{data.title}</span>
           </div>
           <div className="detailRow">
-            <span className="itemTitle">Year:</span> <span>{movie.Year}</span>
+            <span className="itemTitle">Year:</span> <span>{data.year}</span>
           </div>
           <div className="detailRow">
-            <span className="itemTitle">Genre:</span> <span>{movie.Genre}</span>
+            <span className="itemTitle">Genre:</span> <span>{data.genre}</span>
           </div>
           <div className="detailRow">
-            <span className="itemTitle">Country:</span> <span>{movie.Country}</span>
+            <span className="itemTitle">Country:</span> <span>{data.country}</span>
           </div>
           <div className="detailRow">
-            <span className="itemTitle">Language:</span> <span>{movie.Language}</span>
+            <span className="itemTitle">Language:</span> <span>{data.language}</span>
           </div>
           <div className="detailRow">
-            <span className="itemTitle">Runtime:</span> <span>{movie.Runtime}</span>
+            <span className="itemTitle">Runtime:</span> <span>{data.runtime}</span>
           </div>
           <div className="detailRow">
-            <span className="itemTitle">Actors:</span> <span>{movie.Actors}</span>
+            <span className="itemTitle">Actors:</span> <span>{data.actors}</span>
           </div>
           <div className="detailRow">
-            <span className="itemTitle">Plot:</span> <span>{movie.Plot}</span>
+            <span className="itemTitle">Plot:</span> <span>{data.plot}</span>
           </div>
         </div>
       )}

@@ -1,32 +1,17 @@
 import './SearchSection.scss';
-import { fetchItems } from '../../services/apiService';
-import { SearchSectionProps } from '../../types';
-import ErrorThrowButton from '../ErrorThrowButton/ErrorThrowButton';
-import { useCallback, useEffect, useState } from 'react';
-import useSearchTerm from '../../hooks/useLocalStorage';
+import { useState } from 'react';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import { useAppDispatch } from '../../hooks/redux';
+import { setPage } from '../../store/slices/pageSlice';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-export default function SearchSection({ onSearchResults, onLoading, setPage, currentPage }: SearchSectionProps) {
-  const [searchTerm, setSearchTerm] = useSearchTerm('searchTerm', '');
+export default function SearchSection() {
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useLocalStorage('searchTerm');
   const [inputValue, setInputValue] = useState(searchTerm);
-
-  const fetchItemsHandler = useCallback(
-    async (term: string, page: number = 1) => {
-      try {
-        onLoading(true);
-        const response = await fetchItems(term, page);
-        if (response) {
-          onSearchResults({ results: response.results, totalPages: response.totalPages });
-        } else {
-          onSearchResults({ results: [], totalPages: 0 });
-        }
-      } catch (error) {
-        console.error('Error fetching initial items:', error);
-      } finally {
-        onLoading(false);
-      }
-    },
-    [onLoading, onSearchResults],
-  );
+  const searchParams = new URLSearchParams(location.search);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -36,18 +21,15 @@ export default function SearchSection({ onSearchResults, onLoading, setPage, cur
     event.preventDefault();
     const trimmedSearchTerm = inputValue.trim();
     setSearchTerm(trimmedSearchTerm);
-    setPage(1);
-    fetchItemsHandler(trimmedSearchTerm, 1);
+    dispatch(setPage(1));
+    searchParams.set('search', trimmedSearchTerm);
+    navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
   };
-
-  useEffect(() => {
-    fetchItemsHandler(searchTerm, currentPage);
-  }, [currentPage, fetchItemsHandler, searchTerm]);
 
   return (
     <div className="searchSection">
-      <h1>Search movies</h1>
-      <form onSubmit={handleSearch} className="searchRow">
+      <h1 className="searchSection-title">Search movies</h1>
+      <form onSubmit={handleSearch} className="searchRow" data-testid="search-form">
         <input
           className="search"
           type="text"
@@ -56,8 +38,6 @@ export default function SearchSection({ onSearchResults, onLoading, setPage, cur
           placeholder="Enter a word in English..."
         />
         <button type="submit">Search</button>
-
-        <ErrorThrowButton />
       </form>
     </div>
   );
