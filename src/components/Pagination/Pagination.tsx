@@ -26,18 +26,22 @@ export default function Pagination() {
   };
 
   return (
-    <div className="pagination">
-      <button className="page-btn" disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
-        &lt;&lt;&lt;
-      </button>
-      <span data-testid="page-counter">{`Page ${currentPage} of ${data?.totalPages}`}</span>
-      <button
-        className="page-btn"
-        disabled={currentPage === data?.totalPages}
-        onClick={() => handlePageChange(currentPage + 1)}
-      >
-        &gt;&gt;&gt;
-      </button>
-    </div>
+    <>
+      {!!data?.totalPages && (
+        <div className="pagination">
+          <button className="page-btn" disabled={currentPage === 1} onClick={() => handlePageChange(currentPage - 1)}>
+            &lt;&lt;&lt;
+          </button>
+          <span data-testid="page-counter">{`Page ${currentPage} of ${data?.totalPages}`}</span>
+          <button
+            className="page-btn"
+            disabled={currentPage === data?.totalPages}
+            onClick={() => handlePageChange(currentPage + 1)}
+          >
+            &gt;&gt;&gt;
+          </button>
+        </div>
+      )}
+    </>
   );
 }
