@@ -3,7 +3,14 @@
 
 .searchSection {
   background-color: var(--main-color);
+  background-image: url('./top-img.png');
+  background-size: contain;
+  background-repeat: no-repeat;
   padding-bottom: 1.5rem;
+
+  .searchSection-title {
+    color: var(--main-color-title);
+  }
 }
 
 .searchRow {
