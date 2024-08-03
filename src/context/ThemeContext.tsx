@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, PropsWithChildren, useState } from 'react';
 import { Theme } from '../types';
 
 interface ThemeContextProps {
@@ -13,7 +13,7 @@ const defaultValue: ThemeContextProps = {
 
 export const ThemeContext = createContext<ThemeContextProps>(defaultValue);
 
-export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+export const ThemeProvider = ({ children }: PropsWithChildren) => {
   const [theme, setTheme] = useState<Theme>('light');
 
   return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>;

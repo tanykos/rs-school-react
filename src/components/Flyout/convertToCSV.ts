@@ -1,4 +1,4 @@
-import { MovieDetails } from '../types';
+import { MovieDetails } from '../../types';
 
 export const convertToCSV = (movies: MovieDetails[]): string => {
   const headers = ['ID', 'Title', 'Year', 'Genre', 'Country', 'Runtime', 'Actors', 'Plot', 'Language'];

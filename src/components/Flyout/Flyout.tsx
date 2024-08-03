@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { unselectMovies } from '../../store/slices/moviesSlice';
 import './Flyout.scss';
-import { convertToCSV, createCSVDownloadURL } from '../../shared/convertToCSV';
+import { convertToCSV, createCSVDownloadURL } from './convertToCSV';
 
 interface FlyoutProps {
   itemCount: number;

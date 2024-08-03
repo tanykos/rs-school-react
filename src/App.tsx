@@ -6,7 +6,6 @@ import { Paths } from './router/routesConstants';
 import Pagination from './components/Pagination/Pagination';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { moviesApi } from './services/apiService';
-import useLocalStorage from './hooks/useLocalStorage';
 import { setActiveMovie } from './store/slices/moviesSlice';
 import ThemeSelector from './components/ThemeSelector/ThemeSelector';
 import { ThemeContext } from './context/ThemeContext';
@@ -20,7 +19,7 @@ export default function App() {
   const matchDetails = useMatch(Paths.DETAILS);
   const searchParams = new URLSearchParams(location.search);
 
-  const [searchTerm] = useLocalStorage('searchTerm', '');
+  const searchTerm = searchParams.get('search') || '';
   const currentPage = useAppSelector((state) => state.page.currentPage);
 
   const { data, error, isLoading } = moviesApi.useFetchMoviesQuery({
