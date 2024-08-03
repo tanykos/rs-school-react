@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Movie, MovieDetails } from '../../types';
-import { moviesApi } from '../../services/apiService';
+
 export interface MoviesState {
   results: Movie[];
   totalPages: number;
@@ -37,21 +37,16 @@ const moviesSlice = createSlice({
     unselectMovies(state) {
       state.selectedMovies = [];
     },
-  },
-  extraReducers: (builder) => {
-    builder.addMatcher(
-      moviesApi.endpoints.fetchMovieById.matchFulfilled,
-      (state, action: PayloadAction<MovieDetails>) => {
-        const index = state.selectedMovies.findIndex((movie) => movie.id === action.payload.id);
-        if (index === -1) {
-          state.selectedMovies.push(action.payload);
-        } else {
-          state.selectedMovies.splice(index, 1);
-        }
-      },
-    );
+    deleteMovieById(state, action: PayloadAction<string>) {
+      const index = state.selectedMovies.findIndex((movie) => movie.id === action.payload);
+      state.selectedMovies.splice(index, 1);
+    },
+    addMovieDetails(state, action: PayloadAction<MovieDetails>) {
+      state.selectedMovies.push(action.payload);
+    },
   },
 });
 
-export const { setResults, setTotalPages, setActiveMovie, unselectMovies } = moviesSlice.actions;
+export const { setResults, setTotalPages, setActiveMovie, unselectMovies, deleteMovieById, addMovieDetails } =
+  moviesSlice.actions;
 export default moviesSlice.reducer;

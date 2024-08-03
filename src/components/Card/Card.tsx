@@ -1,8 +1,9 @@
 import './Card.scss';
 import { Movie } from '../../types';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { moviesApi } from '../../services/apiService';
+import { addMovieDetails, deleteMovieById } from '../../store/slices/moviesSlice';
 
 interface CardProps {
   movie: Movie;
@@ -12,6 +13,7 @@ export default function Card({ movie: { id, title, year, poster } }: CardProps) 
   const posterUrl = poster === 'N/A' ? './poster.svg' : poster;
   const posterClass = poster === 'N/A' ? 'placeholder' : 'poster';
 
+  const dispatch = useAppDispatch();
   const selectedMovies = useAppSelector((state) => state.movies.selectedMovies);
   const isSelected = selectedMovies.some((selectedMovie) => selectedMovie.id === id);
   const [checked, setChecked] = useState(isSelected);
@@ -22,11 +24,17 @@ export default function Card({ movie: { id, title, year, poster } }: CardProps) 
     setChecked(isSelected);
   }, [isSelected]);
 
-  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxChange = async (e: ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
-    const newChecked = !checked;
-    setChecked(newChecked);
-    fetchMovie(id);
+    setChecked(!checked);
+    if (!checked) {
+      const movieDetails = await fetchMovie(id);
+      if (movieDetails && movieDetails.data) {
+        dispatch(addMovieDetails(movieDetails.data));
+      }
+    } else {
+      dispatch(deleteMovieById(id));
+    }
   };
 
   return (

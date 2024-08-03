@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import Card from './Card';
 import { vi } from 'vitest';
@@ -21,12 +21,17 @@ describe('Card Component', () => {
   });
 
   test('handles checkbox change and calls fetchMovie', async () => {
-    const fetchMovieMock = vi.fn();
+    const fetchMovieMock = vi.fn().mockResolvedValue({
+      id: mockMovie.id,
+      title: mockMovie.title,
+    });
+
     vi.spyOn(moviesApi, 'useLazyFetchMovieByIdQuery').mockReturnValue([
       fetchMovieMock,
       { data: null, isFetching: false, isError: false },
       { lastArg: 'test' },
     ]);
+
     render(
       <Provider store={mockStore}>
         <Card movie={mockMovie} />
@@ -40,6 +45,8 @@ describe('Card Component', () => {
 
     expect(checkbox).toBeChecked();
 
-    expect(fetchMovieMock).toHaveBeenCalledWith(mockMovie.id);
+    await waitFor(() => {
+      expect(fetchMovieMock).toHaveBeenCalledWith(mockMovie.id);
+    });
   });
 });
