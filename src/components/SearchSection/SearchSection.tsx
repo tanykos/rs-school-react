@@ -1,5 +1,5 @@
 import './SearchSection.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { useAppDispatch } from '../../hooks/redux';
 import { setPage } from '../../store/slices/pageSlice';
@@ -12,6 +12,13 @@ export default function SearchSection() {
   const [searchTerm, setSearchTerm] = useLocalStorage('searchTerm');
   const [inputValue, setInputValue] = useState(searchTerm);
   const searchParams = new URLSearchParams(location.search);
+
+  useEffect(() => {
+    if (!searchParams.get('search') && searchTerm) {
+      searchParams.set('search', searchTerm);
+      navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+    }
+  }, []);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
