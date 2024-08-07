@@ -2,6 +2,7 @@
 @import '../../styles/mixins';
 
 .searchSection {
+  z-index: 1;
   background-color: var(--main-color);
   background-image: url('./top-img.png');
   background-size: contain;
