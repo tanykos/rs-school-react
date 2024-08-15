@@ -1,26 +1,31 @@
-# Search movies
+# React Forms
 
 ## Project's Description  
 
-Application for searching movie by keyword.
+Application presents two types of React Forms:  
++ the form created using uncontrolled components approach  
++ the form created using React Hook Form
 
 ## Features
 
-+ Search list of movies.
-+ Open movie's details by clicking on the card.
-+ Select favorite movies and download details to the .csv file.  
-+ Control the application theme.
++ Routing: there are 3 routes:  
+1. Main, should have links to other 2 routes.
+2. Route for the form created using uncontrolled components approach.
+3. Route for the similar form, but created using React Hook Form.
++ Redux to store the data provided by both approaches on the Main route.  
++ Both forms collect the same data.  
++ Validation: block submitting the form before all the errors are fixed.  
++ On successful form submission user is redirected to the main route with all the previously entered data. There is an indication for a newly entered data on the main route.
 
 ## Technologies  
-- Frontend:
   - React JS
-  - Redux Toolkit
-  - RTK Query
   - TypeScript
+  - Redux Toolkit
+  - React Hook Form
+  - React Router
+  - Yup
   - Vitest
-  - HTML, SCSS  
-- Backend:  
-  - [OMDb API] (https://www.omdbapi.com/)  
+  - HTML, SCSS 
 
 ## Installation
 

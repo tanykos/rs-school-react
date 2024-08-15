@@ -1,3 +1,5 @@
 export enum Paths {
-  HOME = '/',
+  MAIN = '/',
+  UNCONTROLLED = '/uncontrolled',
+  HOOK_FORM = '/react-hook-form',
 }
