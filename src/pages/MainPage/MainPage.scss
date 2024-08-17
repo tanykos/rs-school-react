@@ -47,5 +47,5 @@
 }
 
 .container {
-  height: calc(100vh - $height-header);
+  min-height: calc(100vh - $height-header);
 }

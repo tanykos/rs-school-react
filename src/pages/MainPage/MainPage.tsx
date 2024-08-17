@@ -1,6 +1,7 @@
 import './MainPage.scss';
 import { Link } from 'react-router-dom';
 import { Paths } from '../../router/routesConstants';
+import CardList from '../../components/CardList/CardList';
 
 export default function MainPage() {
   return (
@@ -24,7 +25,7 @@ export default function MainPage() {
       </header>
       <main className="main">
         <div className="container">
-          <h2>No data</h2>
+          <CardList />
         </div>
       </main>
     </>

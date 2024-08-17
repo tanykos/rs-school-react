@@ -8,7 +8,7 @@
   cursor: pointer;
   transition: all 0.3s;
   background-color: $color-btn;
-  color: inherit;
+  color: var(--button-text-color);
 
   &:hover:not([disabled]) {
     background-color: $color-btn-hover;

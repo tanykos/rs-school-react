@@ -1,0 +1,24 @@
+@import '../../styles/variables';
+
+.card {
+  width: 260px;
+  padding: 1.5rem;
+  border: 2px solid var(--border-gray-color);
+  border-radius: 20px;
+  text-align: left;
+  background-color: var(--form-bg-color);
+
+  .cardLabel {
+    font-weight: 600;
+  }
+
+  &:first-child {
+    border-color: var(--secondary-color);
+    background-color: var(--secondary-light-color);
+  }
+
+  .image {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
