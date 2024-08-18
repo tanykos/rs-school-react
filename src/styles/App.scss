@@ -37,8 +37,12 @@
   }
 
   .radioWrap {
-    .input:nth-child(2) {
-      margin-left: 2rem;
+    label {
+      cursor: pointer;
+    }
+
+    label:first-child {
+      margin-right: 2rem;
     }
   }
 

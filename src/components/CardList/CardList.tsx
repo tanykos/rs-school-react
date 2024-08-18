@@ -8,7 +8,11 @@ export default function CardList() {
 
   const renderContent = () => {
     if (formsCards && formsCards.length === 0) {
-      return <div key="noData">No Data</div>;
+      return (
+        <div key="noData" className="noData">
+          <h2>No Data</h2>
+        </div>
+      );
     }
 
     if (formsCards)

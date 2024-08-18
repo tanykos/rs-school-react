@@ -38,7 +38,7 @@ export default function UncontrolledFormPage() {
         <h1>Uncontrolled Form</h1>
       </header>
       <main className="main">
-        <form onSubmit={handleSubmit} className="form">
+        <form onSubmit={handleSubmit} autoComplete="off" className="form">
           <label htmlFor="name" className="label">
             Name:
           </label>
@@ -61,8 +61,12 @@ export default function UncontrolledFormPage() {
           <input id="confirmPassword" type="password" name="confirmPassword" className="input" />
           <label className="label">Gender:</label>
           <div className="radioWrap">
-            <input type="radio" name="gender" value="male" className="input" /> Male
-            <input type="radio" name="gender" value="female" className="input" /> Female
+            <label>
+              <input type="radio" name="gender" value="male" className="input" /> Male
+            </label>
+            <label>
+              <input type="radio" name="gender" value="female" className="input" /> Female
+            </label>
           </div>
           <label htmlFor="terms" className="label">
             <input id="terms" type="checkbox" name="termsAccepted" className="input checkbox" />
@@ -71,7 +75,7 @@ export default function UncontrolledFormPage() {
           <label htmlFor="country" className="label">
             Country:
           </label>
-          <input list="country-list" id="country" name="country" className="input" autoComplete="off" />
+          <input list="country-list" id="country" name="country" className="input" />
 
           <datalist id="country-list">
             {countries.map((country) => (

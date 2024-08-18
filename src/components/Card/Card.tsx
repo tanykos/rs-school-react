@@ -6,7 +6,6 @@ interface CardProps {
 }
 
 export default function Card({ inputsData }: CardProps) {
-  console.log('inputsData in Card: ', inputsData);
   return (
     <div className="card">
       <p className="cardRow">
@@ -35,7 +34,7 @@ export default function Card({ inputsData }: CardProps) {
       </p>
       <p>
         <span className="cardLabel">Image: </span>
-        {inputsData.image ? <img src={inputsData.image} alt="Uploaded" className="image" /> : 'not loaded'}
+        {inputsData.image ? <img src={inputsData.image} alt="Uploaded" className="image" /> : 'not provided'}
       </p>
     </div>
   );
