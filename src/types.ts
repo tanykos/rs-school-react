@@ -7,5 +7,5 @@ export interface InputsData {
   gender?: string;
   termsAccepted?: NonNullable<boolean | undefined>;
   country?: string;
-  image?: string;
+  image?: string | File[];
 }
