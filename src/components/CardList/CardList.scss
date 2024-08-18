@@ -1,0 +1,12 @@
+@import '../../styles/variables';
+
+.cardList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 2rem;
+
+  .noData {
+    width: 100%;
+  }
+}
