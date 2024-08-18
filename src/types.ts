@@ -5,7 +5,7 @@ export interface InputsData {
   password?: string;
   confirmPassword?: string;
   gender?: string;
-  termsAccepted?: 'on' | 'off';
+  termsAccepted?: NonNullable<boolean | undefined>;
   country?: string;
   image?: string;
 }

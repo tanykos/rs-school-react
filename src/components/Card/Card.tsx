@@ -21,6 +21,10 @@ export default function Card({ inputsData }: CardProps) {
         {inputsData.email}
       </p>
       <p className="cardRow">
+        <span className="cardLabel">Password: </span>
+        {inputsData.password}
+      </p>
+      <p className="cardRow">
         <span className="cardLabel">Gender: </span>
         {inputsData.gender}
       </p>

@@ -88,7 +88,9 @@ export default function UncontrolledFormPage() {
           </label>
           <input id="image" type="file" name="image" accept=".png, .jpeg" className="inputFile" />
 
-          <button type="submit">Submit</button>
+          <button type="submit" className="w-100">
+            Submit
+          </button>
         </form>
       </main>
     </>
